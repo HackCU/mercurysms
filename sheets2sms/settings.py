@@ -123,5 +123,5 @@ LOGIN_REDIRECT_URL = 'send_form'
 ACCOUNT_TWILIO = os.environ.get('ACCOUNT_TWILIO', None)
 TOKEN_TWILIO = os.environ.get('TOKEN_TWILIO', None)
 FROM_TWILIO = os.environ.get('FROM_TWILIO', None)
-SHEETS_KEY = os.environ.get('SHEETS_KEY', '1Fo58xcUnCUN2-_1Rjua2lW6b85IDQ2gK9wdlS83zL3I')
+SHEETS_KEY = os.environ.get('SHEETS_KEY', '')
 SHEETS_GID = os.environ.get('SHEETS_GID', '0')
