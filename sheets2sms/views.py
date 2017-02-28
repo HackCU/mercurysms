@@ -12,13 +12,13 @@ SHEETS_GID = getattr(settings, "SHEETS_GID", None)
 sheet = sheets.Sheet(SHEETS_KEY, SHEETS_GID)
 
 
-class SendSMSView(LoginRequiredMixin,TemplateView):
+class SendSMSView(LoginRequiredMixin, TemplateView):
     template_name = 'sendSMS.html'
 
     def get_context_data(self, **kwargs):
         con = super(SendSMSView, self).get_context_data(**kwargs)
         lists = sheet.lists
-        con.update({'form': SendSMSForm(lists), 'sheets_key': SHEETS_KEY})
+        con.update({'form': SendSMSForm(lists), 'sheets_url': sheets.SHEETS_URL.format(key=SHEETS_KEY, gid=SHEETS_GID)})
         return con
 
     def post(self, request, *args, **kwargs):

@@ -13,6 +13,10 @@ logger = logging.getLogger(__name__)
 gdocs_format = \
     'https://docs.google.com/spreadsheets/d/{key}/export?format=csv'
 
+SHEETS_URL= \
+    'https://docs.google.com/spreadsheets/d/{key}/edit?gid={gid}'
+
+
 CACHE_KEY = 'django-sheets-{key}-{gid}'
 
 

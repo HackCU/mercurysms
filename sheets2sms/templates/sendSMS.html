@@ -1,4 +1,3 @@
-
 {% extends 'base.html' %}
 {% load bootstrap3 %}
 {% load static %}
@@ -20,6 +19,9 @@
                         <button class="btn btn-block btn-success" type="submit">Send</button>
                     {% endbuttons %}
                 </form>
+            </div>
+            <div class="panel-footer">
+                <a href="{{ sheets_url }}" class="btn-block btn btn-default" target="_blank">Open Google Sheets</a>
             </div>
         </div>
 
