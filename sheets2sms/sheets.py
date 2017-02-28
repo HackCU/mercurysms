@@ -4,18 +4,15 @@ import csv
 import logging
 
 import requests
-from django.conf import settings
 from django.core.cache import cache
 from django.utils.encoding import force_str, force_text
-from django.utils.functional import cached_property
 
 logger = logging.getLogger(__name__)
 gdocs_format = \
     'https://docs.google.com/spreadsheets/d/{key}/export?format=csv'
 
-SHEETS_URL= \
+SHEETS_URL = \
     'https://docs.google.com/spreadsheets/d/{key}/edit?gid={gid}'
-
 
 CACHE_KEY = 'django-sheets-{key}-{gid}'
 
@@ -53,24 +50,22 @@ class Sheet(object):
             return force_str('')
 
     def fetch_sheet(self):
-        cache_enabled = not getattr(settings, 'SHEETS_CACHE_DISABLED', False)
-        if cache_enabled:
-            cache_key = CACHE_KEY.format(
-                key=self.key, gid=self.gid)
-            cached_output = cache.get(cache_key)
+        cache_key = CACHE_KEY.format(
+            key=self.key, gid=self.gid)
+        cached_output = cache.get(cache_key)
 
-            if cached_output is not None:
-                return cached_output
+        if cached_output is not None:
+            return cached_output
 
         sheet = self._fetch_sheet()
 
-        if cache_enabled:
-            cache.set(cache_key, sheet, 5)
+        # Cache results by 2 minutes
+        cache.set(cache_key, sheet, 60)
         return sheet
 
     @property
     def data(self):
-        sheet = self._fetch_sheet()
+        sheet = self.fetch_sheet()
         reader = csv.reader(
             sheet.splitlines(),
             delimiter=str(','),
