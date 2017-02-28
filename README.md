@@ -8,9 +8,7 @@ Needs: Python 3.X
 - `python manage.py migrate`
 - `python manage.py createsuperuser`
 
-### Create Google Sheets
 
-Create a Google Sheets and make it available to anyone.
 
 ## Run server
 
@@ -27,4 +25,27 @@ Add 4 (1 optional) environment variables:
 
 Run server to 0.0.0.0
 `python manage.py runserver 0.0.0.0:8000`
+
+
+## Usage
+
+### Create Google Sheets
+
+Create a Google Sheets and make it available to anyone.
+
+### Add lists to Google Sheets
+
+A list is a column in the mentioned Google Sheets. It is identified by each first row of a column. The rest of the rows must be the phone numbers.
+
+### Send SMS to list
+
+- Open root route. Ex: http://localhost:8000
+- Login with user (you can login with the super user you created in your first steps)
+- Send messages right away. Let's SPAM those users :D
+
+### Add new users
+
+- Login with admin user
+- Enter admin interface. Ex: http://localhost:8000/admin
+- Add new user there
 
