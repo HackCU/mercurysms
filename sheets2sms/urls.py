@@ -21,6 +21,6 @@ from sheets2sms import views
 urlpatterns = [
     url(r'^admin/', admin.site.urls),
     url(r'^accounts/login/$', auth_views.login, name='login'),
-    url(r'^accounts/logout/$', auth_views.logout, name='logout'),
+    url(r'^accounts/logout/$', auth_views.logout, {'template_name': 'registration/logout.html'},name='logout'),
     url(r'^$', views.SendSMSView.as_view(), name='send_form'),
 ]
