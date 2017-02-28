@@ -15,9 +15,12 @@ Including another URLconf
 """
 from django.conf.urls import url
 from django.contrib import admin
+from django.contrib.auth import views as auth_views
 from sheets2sms import views
 
 urlpatterns = [
     url(r'^admin/', admin.site.urls),
-    url(r'^send/', views.SendSMSView.as_view(), name='send_form'),
+    url(r'^accounts/login/$', auth_views.login, name='login'),
+    url(r'^accounts/logout/$', auth_views.logout, name='logout'),
+    url(r'^$', views.SendSMSView.as_view(), name='send_form'),
 ]

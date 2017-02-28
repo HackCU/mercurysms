@@ -1,8 +1,7 @@
-
 {% extends 'base.html' %}
 {% load bootstrap3 %}
 {% load static %}
-{% block title %}Send SMS{% endblock %}
+{% block title %}Login{% endblock %}
 
 {% block body %}
 
@@ -17,7 +16,7 @@
                     {% csrf_token %}
                     {% bootstrap_form form %}
                     {% buttons %}
-                        <button class="btn btn-block btn-success" type="submit">Send</button>
+                        <button class="btn btn-block btn-success" type="submit">Login</button>
                     {% endbuttons %}
                 </form>
             </div>

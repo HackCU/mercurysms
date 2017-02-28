@@ -35,6 +35,7 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'bootstrap3'
 ]
 
 MIDDLEWARE = [
@@ -111,7 +112,13 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/1.10/howto/static-files/
 
+STATICFILES_DIRS = [
+    os.path.join(BASE_DIR, "sheets2sms/static"),
+]
+
 STATIC_URL = '/static/'
+
+LOGIN_REDIRECT_URL = 'send_form'
 
 ACCOUNT_TWILIO = os.environ.get('ACCOUNT_TWILIO', None)
 TOKEN_TWILIO = os.environ.get('TOKEN_TWILIO', None)
