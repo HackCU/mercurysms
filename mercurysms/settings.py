@@ -48,12 +48,12 @@ MIDDLEWARE = [
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 ]
 
-ROOT_URLCONF = 'sheets2sms.urls'
+ROOT_URLCONF = 'mercurysms.urls'
 
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': ['sheets2sms/templates', ],
+        'DIRS': ['mercurysms/templates', ],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -66,7 +66,7 @@ TEMPLATES = [
     },
 ]
 
-WSGI_APPLICATION = 'sheets2sms.wsgi.application'
+WSGI_APPLICATION = 'mercurysms.wsgi.application'
 
 # Database
 # https://docs.djangoproject.com/en/1.10/ref/settings/#databases
@@ -113,7 +113,7 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/1.10/howto/static-files/
 
 STATICFILES_DIRS = [
-    os.path.join(BASE_DIR, "sheets2sms/static"),
+    os.path.join(BASE_DIR, "mercurysms/static"),
 ]
 
 STATIC_URL = '/static/'

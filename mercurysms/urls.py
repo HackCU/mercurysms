@@ -16,7 +16,7 @@ Including another URLconf
 from django.conf.urls import url
 from django.contrib import admin
 from django.contrib.auth import views as auth_views
-from sheets2sms import views
+from mercurysms import views
 
 urlpatterns = [
     url(r'^admin/', admin.site.urls),
