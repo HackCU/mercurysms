@@ -23,4 +23,5 @@ urlpatterns = [
     url(r'^accounts/login/$', auth_views.login, name='login'),
     url(r'^accounts/logout/$', auth_views.logout, {'template_name': 'registration/logout.html'},name='logout'),
     url(r'^$', views.SendSMSView.as_view(), name='send_form'),
+    url(r'^sent/$', views.succesfully_sent, name='sms_sent'),
 ]

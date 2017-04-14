@@ -8,6 +8,6 @@ class SendSMSForm(Form):
     def __init__(self, lists, *args, **kwargs):
         super(SendSMSForm, self).__init__(*args, **kwargs)
         self.fields['list'] = forms.ChoiceField(
-            required=True,
-            choices=[(l, str(l)) for l in lists]
+            choices=[(l, str(l)) for l in lists],
+            required=True
         )

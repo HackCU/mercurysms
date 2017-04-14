@@ -35,7 +35,7 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'bootstrap3'
+    'bootstrap3',
 ]
 
 MIDDLEWARE = [
@@ -125,3 +125,4 @@ TOKEN_TWILIO = os.environ.get('TOKEN_TWILIO', None)
 FROM_TWILIO = os.environ.get('FROM_TWILIO', None)
 SHEETS_KEY = os.environ.get('SHEETS_KEY', '')
 SHEETS_GID = os.environ.get('SHEETS_GID', '0')
+SMS_COST = os.environ.get('SMS_COST', '0.0075')
