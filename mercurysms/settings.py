@@ -22,9 +22,12 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 SECRET_KEY = 'c9%ew7w^#kno5-)!(=*y69f$hm%3lvf%aci0^jh02-2a40@ljx'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
 
-ALLOWED_HOSTS = []
+DEBUG = True
+if os.environ.get('PROD', False):
+    DEBUG = False
+
+ALLOWED_HOSTS = ['localhost', 'mercury.hackcu.org']
 
 # Application definition
 
@@ -36,6 +39,7 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'bootstrap3',
+    'authmanager',
 ]
 
 MIDDLEWARE = [
@@ -118,7 +122,11 @@ STATICFILES_DIRS = [
 
 STATIC_URL = '/static/'
 
+STATIC_ROOT = BASE_DIR + '/staticfiles/'
+
 LOGIN_REDIRECT_URL = 'send_form'
+
+STATICFILES_STORAGE = 'whitenoise.django.GzipManifestStaticFilesStorage'
 
 ACCOUNT_TWILIO = os.environ.get('ACCOUNT_TWILIO', None)
 TOKEN_TWILIO = os.environ.get('TOKEN_TWILIO', None)
@@ -126,3 +134,6 @@ FROM_TWILIO = os.environ.get('FROM_TWILIO', None)
 SHEETS_KEY = os.environ.get('SHEETS_KEY', '')
 SHEETS_GID = os.environ.get('SHEETS_GID', '0')
 SMS_COST = os.environ.get('SMS_COST', '0.0075')
+
+
+ADMINS = ['admin',]
