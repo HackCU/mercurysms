@@ -13,8 +13,13 @@
             <div class="panel-body">
 
                 <form method="post" class="form">
+                    <p>Data is cached for 1 minute to avoid doing to many calls to Google Sheets. If you detected an error, wait until the cache is over.</p>
                     {% csrf_token %}
                     {% bootstrap_form form %}
+                    <label class="control-label">Choose list to send to:</label>
+                    {% for list in lists %}
+                        <label class="checkbox-inline"><input name="lists" type="checkbox" value="{{ list }}">{{ list }}</label>
+                    {% endfor %}
                     {% buttons %}
                         <button class="btn btn-block btn-success" type="submit">Send</button>
                     {% endbuttons %}

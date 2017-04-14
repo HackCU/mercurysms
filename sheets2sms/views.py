@@ -22,14 +22,17 @@ class SendSMSView(LoginRequiredMixin, TemplateView):
     def get_context_data(self, **kwargs):
         con = super(SendSMSView, self).get_context_data(**kwargs)
         lists = self.sheet.lists
-        con.update({'form': SendSMSForm(lists), 'sheets_url': sheets.SHEETS_URL.format(key=SHEETS_KEY, gid=SHEETS_GID)})
+        con.update({'form': SendSMSForm(lists), 'lists': lists,
+                    'sheets_url': sheets.SHEETS_URL.format(key=SHEETS_KEY, gid=SHEETS_GID)})
         return con
 
     def post(self, request, *args, **kwargs):
-        list = request.POST.get('list')
-        numbers = self.sheet.get_list(list)
+        lists = request.POST.getlist('lists')
+        numbers = set()
+        for list_ in lists:
+            numbers = numbers.union(set(self.sheet.get_list(list_)))
         message = request.POST.get('message')
-        err_nums, cost = twilio.mass_sms(message, numbers)
+        err_nums, cost = twilio.mass_sms(message, list(numbers))
         url = reverse('sms_sent') + '?q=1'
         if err_nums:
             url += '&nums=' + ','.join(err_nums)
