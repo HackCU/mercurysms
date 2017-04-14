@@ -1,5 +1,5 @@
-# sheet2sms
-Dynamically extract phone numbers from a defined GSheets to send bulk messages with Twilio.
+# MercurySMS
+Dynamically extract phone numbers from a defined Google Sheets to send bulk messages with Twilio.
 
 ## Setup
 Needs: Python 3.X
@@ -31,7 +31,7 @@ Run server to 0.0.0.0
 
 ### Create Google Sheets
 
-Create a Google Sheets and make it available to anyone.
+Create a Google Sheets. Open to public for viewing.
 
 ### Add lists to Google Sheets
 
@@ -48,4 +48,12 @@ A list is a column in the mentioned Google Sheets. It is identified by each firs
 - Login with admin user
 - Enter admin interface. Ex: http://localhost:8000/admin
 - Add new user there
+
+
+## Future
+
+- Add hability to receive SMS
+- Answer SMS received individually
+- Keep a log of all messages sent and to what numbers
+
 
