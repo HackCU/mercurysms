@@ -57,3 +57,6 @@ A list is a column in the mentioned Google Sheets. It is identified by each firs
 - Keep a log of all messages sent and to what numbers
 
 
+----------------
+
+Made with :heart: at HackCU
