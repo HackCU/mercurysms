@@ -1,3 +1,4 @@
+env.list
 env/
 .idea
 db.sqlite3
