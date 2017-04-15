@@ -4,9 +4,9 @@ from django.contrib.auth.mixins import LoginRequiredMixin
 from django.shortcuts import redirect, render
 from django.urls import reverse
 from django.views.generic import TemplateView
-from sheets2sms import sheets
-from sheets2sms import twilio
-from sheets2sms.forms import SendSMSForm
+from mercurysms import sheets
+from mercurysms import twilio
+from mercurysms.forms import SendSMSForm
 
 SHEETS_KEY = getattr(settings, "SHEETS_KEY", None)
 SHEETS_GID = getattr(settings, "SHEETS_GID", None)
