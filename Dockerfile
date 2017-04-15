@@ -9,10 +9,9 @@ RUN mkdir /code/mercurysms
 RUN mkdir /code/authmanager
 ADD mercurysms /code/mercurysms
 ADD authmanager /code/authmanager
-
-RUN python manage.py migrate --noinput
-RUN python manage.py initadmin
+RUN mkdir /code/db
 RUN python manage.py collectstatic --noinput
 EXPOSE 80
-VOLUME ["/code/db.sqlite3",]
-ENTRYPOINT ["gunicorn", "-b 0.0.0.0:80", "mercurysms.wsgi", " --log-file -"]
+ADD start.sh /code/
+VOLUME ["/code/db",]
+ENTRYPOINT /code/start.sh
