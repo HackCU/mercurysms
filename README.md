@@ -1,4 +1,10 @@
-# MercurySMS
+<br>
+<p align="center">
+  <img alt="HackCU" src="https://github.com/hackcu/mercurysms/raw/master/hackculogo.png" width="200"/>
+</p>
+<br>
+
+
 Dynamically extract phone numbers from a defined Google Sheets to send bulk messages with Twilio.
 
 ## Setup
