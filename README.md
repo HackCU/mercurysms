@@ -11,10 +11,11 @@ Dynamically extract phone numbers from a defined Google Sheets to send bulk mess
 
 Your Twilio phone number can be blacklisted as spam by carriers if you're sending bulk SMS. Read this [FAQ](https://support.twilio.com/hc/en-us/articles/223181708-Can-my-Twilio-SMS-messages-be-blacklisted-as-spam-).
 If you plan on sending bulk SMS on a regular basis, this is not the right software.
-You should consider obtaining and using [short codes](https://www.twilio.com/sms/shortcodes) to avoid being blacklisted. They are also much faster than a normal Twilio phone number.
-HackCU and its developers are not responsible if you are blacklisted while using this tool.
+You should consider obtaining and using [short codes](https://www.twilio.com/sms/shortcodes) to avoid being blacklisted.
+They are also much faster than a normal Twilio phone number.
+HackCU and its developers are not responsible if you get blacklisted while using this tool.
 
-This was built for a hackathon and will be used only for about 2 days in a year to send notifications to participants (who are aware of this and voluntarily provided their phone numbers).
+This was built for a hackathon and will be used only for about 2 days in a year to send notifications to participants (who are aware of this and voluntarily provide their phone numbers).
 So, if your use case is similar, you shouldn't run into any issues of being blocked by carriers.
 
 ## Setup
@@ -23,6 +24,7 @@ Needs: Python 3.X
 
 ```shell
 $ pip install -r requirements.txt
+$ mkdir db
 $ python manage.py migrate
 $ python manage.py createsuperuser
 ```
@@ -47,9 +49,9 @@ $ python manage.py runserver 0.0.0.0:8000
 
 ### Docker
 
-In order to make deployment easier, there's an available built image.
+In order to make deployment easier, there's a built image available.
 
-Needs: docker
+Needs: `docker`
 
 - Create a directory
 - Copy `docker_run.sh` into the directory
