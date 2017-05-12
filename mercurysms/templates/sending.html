@@ -1,0 +1,43 @@
+{% extends 'base.html' %}
+{% load bootstrap3 %}
+{% load static %}
+{% block title %}Sending messages{% endblock %}
+
+{% block javascript %}
+    <script>
+      $(document).ready(function() {
+        var refresh_id = setInterval(function() {
+            $.get(
+              "{% url 'status' %}",
+              function(data) {
+                console.log(data);
+                if (data.finished) {
+                  window.location.replace("{% url 'sms_sent' %}");
+                }
+              }
+            )}
+          , 2000);
+      });
+    </script>
+{% endblock %}
+    
+{% block body %}
+    <div class="col-md-8 col-md-offset-2">
+        <div class="panel panel-danger margin-top">
+            <div class="panel-heading">
+                <h3 class="panel-title">Sending messages</h3>
+            </div>
+            <div class="panel-body">
+                We are attempting to send the message to everyone in the list.
+                <br>
+                This might take a while if your list is large.
+                <br>
+                It takes apporximately 1 second to process 1 request. So please be patient.
+                <br>
+                We will redirect you once we've finished. Don't attempt to stop the process.
+            </div>
+            <div class="panel-footer">
+            </div>
+        </div>
+    </div>
+{% endblock %}
