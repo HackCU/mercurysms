@@ -26,8 +26,7 @@ def parse_num(num):
 
 def new_mass_sms(message, numbers):
     bindings = [json.dumps({'binding_type': 'sms', 'address': parse_num(num)}) for i, num in enumerate(numbers) if num]
-    notification = get_client().notify.services(TWILIO_SERVICE_ID) \
+    get_client().notify.services(TWILIO_SERVICE_ID) \
         .notifications.create(
         to_binding=bindings,
         body=message)
-    print(notification)
