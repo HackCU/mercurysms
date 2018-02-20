@@ -131,7 +131,6 @@ STATICFILES_STORAGE = 'whitenoise.django.GzipManifestStaticFilesStorage'
 ACCOUNT_TWILIO = os.environ.get('ACCOUNT_TWILIO', None)
 TOKEN_TWILIO = os.environ.get('TOKEN_TWILIO', None)
 TWILIO_SERVICE_ID = os.environ.get('TWILIO_SERVICE_ID', None)
-FROM_TWILIO = os.environ.get('FROM_TWILIO', None)
 SHEETS_KEY = os.environ.get('SHEETS_KEY', '')
 SHEETS_GID = os.environ.get('SHEETS_GID', '0')
 SMS_COST = os.environ.get('SMS_COST', '0.0075')
