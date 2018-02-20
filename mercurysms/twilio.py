@@ -1,34 +1,33 @@
+import json
 import logging
 
 from django.conf import settings
-from twilio import TwilioRestException
-from twilio.rest import TwilioRestClient
+from twilio.rest import Client
 
 ACCOUNT_TWILIO = getattr(settings, "ACCOUNT_TWILIO", None)
+TWILIO_SERVICE_ID = getattr(settings, "TWILIO_SERVICE_ID", None)
 TOKEN_TWILIO = getattr(settings, "TOKEN_TWILIO", None)
 FROM_TWILIO = getattr(settings, "FROM_TWILIO", None)
 
-SMS_COST = float(getattr(settings, "SMS_COST", '0.0075'))
 
 logger = logging.getLogger(__name__)
 
 
 def get_client():
-    return TwilioRestClient(ACCOUNT_TWILIO, TOKEN_TWILIO)
+    return Client(ACCOUNT_TWILIO, TOKEN_TWILIO)
 
 
-def mass_sms(message, numbers):
-    error_numbers = []
-    for number in numbers:
-        if '+' not in number:
-            number = '+' + number
-        try:
-            get_client().messages.create(to=number, from_=FROM_TWILIO,
-                                         body=message)
-        except TwilioRestException as e:
-            logger.error(e.msg)
-            error_numbers += [number]
+def parse_num(num):
+    num = num.replace('-', '').strip()
+    if '+' not in num:
+        num = '+1' + num
+    return num
 
-    cost = float((len(numbers)-len(error_numbers)))*SMS_COST
 
-    return (error_numbers, cost)
+def new_mass_sms(message, numbers):
+    bindings = [json.dumps({'binding_type': 'sms', 'address': parse_num(num)}) for i, num in enumerate(numbers) if num]
+    notification = get_client().notify.services(TWILIO_SERVICE_ID) \
+        .notifications.create(
+        to_binding=bindings,
+        body=message)
+    print(notification)

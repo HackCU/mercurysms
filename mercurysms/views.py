@@ -1,19 +1,26 @@
 from django.conf import settings
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.mixins import LoginRequiredMixin
-from django.http import JsonResponse
-from django.shortcuts import redirect, render
-from django.urls import reverse
+from django.http import HttpResponseRedirect
+from django.shortcuts import render
+from django.utils.http import urlencode
 from django.views.generic import TemplateView
+
 from mercurysms import sheets
 from mercurysms import twilio
-from mercurysms import worker
 from mercurysms.forms import SendSMSForm
 
 SHEETS_KEY = getattr(settings, "SHEETS_KEY", None)
 SHEETS_GID = getattr(settings, "SHEETS_GID", None)
+SMS_COST = float(getattr(settings, "SMS_COST", '0.0075'))
 
-bg_worker = worker.Worker()
+
+def custom_redirect(url_name, *args, **kwargs):
+    from django.core.urlresolvers import reverse
+    url = reverse(url_name, args=args)
+    params = urlencode(kwargs)
+    return HttpResponseRedirect(url + "?%s" % params)
+
 
 class SendSMSView(LoginRequiredMixin, TemplateView):
     template_name = 'sendSMS.html'
@@ -21,7 +28,6 @@ class SendSMSView(LoginRequiredMixin, TemplateView):
     def __init__(self):
         super(SendSMSView, self).__init__()
         self.sheet = sheets.Sheet(SHEETS_KEY, SHEETS_GID)
-        bg_worker = worker.Worker()
 
     def get_context_data(self, **kwargs):
         con = super(SendSMSView, self).get_context_data(**kwargs)
@@ -36,24 +42,11 @@ class SendSMSView(LoginRequiredMixin, TemplateView):
         for list_ in lists:
             numbers = numbers.union(set(self.sheet.get_list(list_)))
         message = request.POST.get('message')
-        bg_worker.start_process(message, list(numbers))
-        return redirect('sending')
+        twilio.new_mass_sms(message, numbers)
+        return custom_redirect('sms_sent', nums=len(numbers), cost=len(numbers) * SMS_COST)
 
 
 @login_required
 def succesfully_sent(request):
-    nums = bg_worker.err_nums
-    cost = bg_worker.cost
-    bg_worker.reset()
-    context = {'nums': nums, 'cost': cost}
+    context = {'nums': request.GET.get('nums'), 'cost': request.GET.get('cost')}
     return render(request, 'sms_sent.html', context=context)
-
-
-@login_required
-def sending(request):
-    return render(request, 'sending.html')
-
-
-def status(request):
-    data = { 'finished': bg_worker.done }
-    return JsonResponse(data)

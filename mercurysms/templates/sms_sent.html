@@ -6,39 +6,19 @@
 {% block body %}
 
     <div class="col-md-8 col-md-offset-2">
-        {% if nums %}
-        <div class="panel panel-danger margin-top">
-            <div class="panel-heading">
-                <h3 class="panel-title">OH NO! THE SPAM FAILED!</h3>
-            </div>
-            <div class="panel-body">
-                Ooops! It seems like some numbers didn't get send correctly, check the Google  Sheet again.
-                <br>
-                <br>
-                <b>Failed numbers:</b> {{ nums }}.
-                <br>
-                <b>Total cost of successful messages:</b> ${{ cost }}
-
-            </div>
-            <div class="panel-footer">
-                <a href="{% url 'send_form' %}" class="btn-block btn btn-info">Try again</a>
-            </div>
-        </div>
-
-    {% else %}
         <div class="panel panel-success margin-top">
             <div class="panel-heading">
                 <h3 class="panel-title">Successfully sent!</h3>
             </div>
             <div class="panel-body">
                 <b>Total cost of successful messages:</b> ${{ cost }}
+                <b>Numbers reached:</b> {{ nums }}
 
             </div>
             <div class="panel-footer">
                 <a href="{% url 'send_form' %}" class="btn-block btn btn-info">New message</a>
             </div>
         </div>
-    {% endif %}
 
     </div>
 {% endblock %}

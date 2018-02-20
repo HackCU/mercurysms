@@ -4,7 +4,6 @@ import csv
 import logging
 
 import requests
-from django.core.cache import cache
 from django.utils.encoding import force_str, force_text
 
 logger = logging.getLogger(__name__)
@@ -17,7 +16,7 @@ SHEETS_URL = \
 CACHE_KEY = 'django-sheets-{key}-{gid}'
 
 
-class Sheet(object):
+class Sheet:
     def __init__(self, key, gid):
         if not key:
             raise RuntimeError('Sheet key not supplied')
@@ -50,18 +49,7 @@ class Sheet(object):
             return force_str('')
 
     def fetch_sheet(self):
-        cache_key = CACHE_KEY.format(
-            key=self.key, gid=self.gid)
-        cached_output = cache.get(cache_key)
-
-        if cached_output is not None:
-            return cached_output
-
-        sheet = self._fetch_sheet()
-
-        # Cache results by 2 minutes
-        cache.set(cache_key, sheet, 60)
-        return sheet
+        return self._fetch_sheet()
 
     @property
     def data(self):
