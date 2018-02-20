@@ -136,3 +136,8 @@ SHEETS_GID = os.environ.get('SHEETS_GID', '0')
 SMS_COST = os.environ.get('SMS_COST', '0.0075')
 
 ADMINS = ['admin', ]
+
+# Deployment configurations for proxy pass and csrf
+CSRF_TRUSTED_ORIGINS = ALLOWED_HOSTS
+USE_X_FORWARDED_HOST = True
+SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
