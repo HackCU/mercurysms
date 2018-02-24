@@ -18,7 +18,7 @@ def get_client():
 
 
 def parse_num(num):
-    num = num.replace('-', '').strip()
+    num = num.replace('-', '').replace('(', '').replace(')', '').replace('.','').strip()
     if '+' not in num:
         num = '+1' + num
     return num
